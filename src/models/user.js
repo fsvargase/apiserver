@@ -25,6 +25,21 @@ userModel.getUsers = (callback) => {
     }
 };
 
+userModel.getUser = (id, callback) => {
+    let selectSQLOne = `
+    SELECT * FROM  users  WHERE id = ${id}
+    `;
+    if (connection) {
+        connection.query(selectSQLOne, (err, rows) => {
+            if (err) {
+                throw err;
+            } else {
+                callback(null, rows);
+            }
+        })
+    }
+};
+
 userModel.insertUser = (userData, callback) => {
     if (connection) {
         connection.query(insertSQL, userData,
